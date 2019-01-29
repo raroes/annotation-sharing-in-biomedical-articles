@@ -40,17 +40,18 @@ for line in f_in:
     line = line[:-1]
     data = line.split("\t")
     pmid = data[0]
-    mesh_header = data[1]
-    # check if MeSH term can be mapped to ID
-    if mesh_header in ui_mesh_header.keys():
-        ui = ui_mesh_header[mesh_header]
-        total_annotations += 1
-        ui_dict[ui] = 1
-        # keep mapping in a dictionary
-        if pmid not in ui_pmid.keys():
-            ui_pmid[pmid] = [ui]
-        else:
-            ui_pmid[pmid].append(ui)
+    mesh_headers = data[1].split("|")
+    for mesh_header in mesh_headers:
+        # check if MeSH term can be mapped to ID
+        if mesh_header in ui_mesh_header.keys():
+            ui = ui_mesh_header[mesh_header]
+            total_annotations += 1
+            ui_dict[ui] = 1
+            # keep mapping in a dictionary
+            if pmid not in ui_pmid.keys():
+                ui_pmid[pmid] = [ui]
+            else:
+                ui_pmid[pmid].append(ui)
 
 # map all MeSH term annotations to their IDs
 print("Writing output file " + output_annotation_file + "...")

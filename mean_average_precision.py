@@ -2,12 +2,12 @@
 
 import sys
 
-#input_citation_file = "pmid_citations.txt"
-input_citation_file = "../one-sense-per-citation-network/pmid_citations.txt"
-# input_citation_file = "pmid_citations_shuffled.txt"
-
-input_file = "pmid_annotations.txt"
-# input_file = "pmid_annotations_mesh.txt"
+if len(sys.argv) > 1:
+    input_citation_file = sys.argv[1]
+    input_file = sys.argv[2]
+else:
+    input_citation_file = "pmid_citations.txt"
+    input_file = "pmid_annotations.txt"
 
 output_file_f_measure = "annotation_average_f_measure_based_on_connections.txt"
 output_file_map = "annotation_map_based_on_connections.txt"
@@ -203,10 +203,11 @@ for i in range(1,max(recall_annotated.keys())+1):
         recall_list_all = recall_all[i]
         average_recall_all = sum(recall_list_all) / len(recall_list_all)
         count2 = len(recall_list_all)
-        precision_list_all = precision_all[i]
-        average_precision_all = sum(precision_list_all) / len(precision_list_all)
-        f_measure_list_all = f_measure_all[i]
-        average_f_measure_all = sum(f_measure_list_all) / len(f_measure_list_all)
+        if i in precision_all.keys():
+            precision_list_all = precision_all[i]
+            average_precision_all = sum(precision_list_all) / len(precision_list_all)
+            f_measure_list_all = f_measure_all[i]
+            average_f_measure_all = sum(f_measure_list_all) / len(f_measure_list_all)
     else:
         average_recall_all = "N/A"
         average_precision_all = "N/A"
