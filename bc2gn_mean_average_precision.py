@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# compute recall, precision, F-measure and MAP
+# compute recall, precision, F-measure and MAP for BC2GN data
 
 import sys
 
@@ -14,9 +14,11 @@ else:
 output_file_f_measure = "annotation_average_f_measure_based_on_connections.txt"
 output_file_map = "annotation_map_based_on_connections.txt"
 
+input_target_annotation_file = "pmid_annotations_bc2.txt"
+
 f_in = open(input_file, "r")
 
-# read annotation data
+# read overall annotation data
 print("Reading annotations...")
 annotations_pmid = {}
 annotation_stats = {}
@@ -38,6 +40,29 @@ for line in f_in:
                 annotation_stats[annotation] = 1
 
 print("Annotations read: " + str(counter_annotations))
+
+# read annotation data from BC2GN
+print("Reading target annotations...")
+
+f_in = open(input_target_annotation_file, "r")
+
+counter_annotations = 0
+pmids_target = {}
+
+for line in f_in:
+    line = line[:-1]
+    data = line.split("\t")
+    pmid = data[0]
+    if pmid != "":
+        annotations_pmid[pmid] = data[1]
+        pmids[pmid] = 1
+        pmids_target[pmid] = 1
+        counter_annotations += len(annotations_pmid[pmid].split("|"))
+
+print("Annotations read: " + str(counter_annotations))
+print("Number of PMIDs: " + str(len(pmids_target.keys())))
+
+
 
 citation_counter_annotated = {}
 citation_counter_all = {}
@@ -122,8 +147,8 @@ average_precision_for_MAP_annotated = {}
 average_precision_for_MAP_all = {}
 shared_annotations = []
 
-# go through each PMID
-for pmid in annotations_pmid.keys():
+# go through each BC2GN PMID
+for pmid in pmids_target.keys():
     # check if PMID has annotations
     record_annotations = list(annotations_pmid[pmid].split("|"))
     record_annotations_count = len(record_annotations)
