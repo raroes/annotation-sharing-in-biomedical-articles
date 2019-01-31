@@ -1,7 +1,5 @@
 # Prediction of annotations using the citation network
 
-## Scripts to analyze the meaning of ambiguous names across citations
-
 #### For the main analysis the order of execution of the scripts is the following, first:
 
 #### Download data files:
