@@ -2,8 +2,18 @@
 
 input_file = "pmid_annotations.txt"
 input_citation_file = "pmid_citations.txt"
+input_file_medline_pmids = "pmid_list.txt"
 
-output_file = "neighborhood_annotation_statistics.txt"
+output_file = "neighborhood_annotation_statistics_all_medline.txt"
+
+# read a list of all MEDLINE PMIDs
+f_in = open(input_file_medline_pmids, "r")
+
+pmids_medline = {}
+for line in f_in:
+    line = line[:-1]
+    pmid = line
+    pmids_medline[pmid] = 1
 
 # read a list of annotations
 f_in = open(input_file, "r")
@@ -47,27 +57,16 @@ for line in f_in:
         pmid2 = data[1]
         # check if the first PMID is annotated
         if pmid1 in pmids.keys():
-            if pmid1 in all_connection_count.keys():
-                all_connection_count[pmid1] += 1
+            if pmid2 in annotated_connection_count.keys():
+                annotated_connection_count[pmid2] += 1
             else:
-                all_connection_count[pmid1] = 1
-            # check if the second PMID is annotated
-            if pmid2 in pmids.keys():
-                if pmid1 in annotated_connection_count.keys():
-                    annotated_connection_count[pmid1] += 1
-                else:
-                    annotated_connection_count[pmid1] = 1
+                annotated_connection_count[pmid2] = 1
         # do the same but now in reverse
         if pmid2 in pmids.keys():
-            if pmid2 in all_connection_count.keys():
-                all_connection_count[pmid2] += 1
+            if pmid1 in annotated_connection_count.keys():
+                annotated_connection_count[pmid1] += 1
             else:
-                all_connection_count[pmid2] = 1
-            if pmid1 in pmids.keys():
-                if pmid2 in annotated_connection_count.keys():
-                    annotated_connection_count[pmid2] += 1
-                else:
-                    annotated_connection_count[pmid2] = 1
+                annotated_connection_count[pmid1] = 1
 
 annotated_count_list = {}
 all_count_list = {}
@@ -76,7 +75,7 @@ annotated_count_list[0] = 0
 all_count_list[0] = 0
 
 # go back to each PMID and count statistics on number of annotated and not-annotated neighbors
-for pmid in pmids.keys():
+for pmid in pmids_medline.keys():
     # statistics on annotated neighbors
     if pmid in annotated_connection_count.keys():
         count = annotated_connection_count[pmid]
@@ -98,26 +97,20 @@ for pmid in pmids.keys():
         count = 0
         all_count_list[count] += 1
 
-total_pmids = len(pmids.keys()) 
+total_pmids = len(pmids_medline.keys()) 
 
 # Write statistics output in a table
 print("Writing output to " + output_file + "...")
 
 f_out = open(output_file, "w")
 
-f_out.write("Connection count" + "\t" + "With annotated connections" + "\t" + "Percentage of all records" + "\t" + "All connections" + "\t" + "Percentage of all records\n")
+f_out.write("Connection count" + "\t" + "With annotated connections" + "\t" + "Percentage of all records\n")
 
-for i in range(0,max(all_count_list.keys())+1):
+for i in range(0,max(annotated_count_list.keys())+1):
     if i in annotated_count_list.keys():
         annotated_count = annotated_count_list[i]
         percentage_annotated_count = annotated_count_list[i] / total_pmids
     else:
         annotated_count = 0
         percentage_annotated_count = 0
-    if i in all_count_list.keys():
-        percentage_all_count = all_count_list[i] / total_pmids
-        all_count = all_count_list[i]
-    else:
-        percentage_all_count = 0
-        all_count = 0
-    f_out.write(str(i) + "\t" + str(annotated_count) + "\t" + str(percentage_annotated_count) + "\t" + str(all_count) + "\t" + str(percentage_all_count) + "\n")
+    f_out.write(str(i) + "\t" + str(annotated_count) + "\t" + str(percentage_annotated_count) + "\t" + "\n")
