@@ -32,7 +32,7 @@
 
 ### * *create_second_degree_network.py*: creates the second-degree citation network
 ### * *create_shuffled_network.py*: creates a shuffled version of the original network
-### * *map_doi_citations_to_pmid*: map citation pairs in DOI format to PMID using the EBI mapping data
+### * *map_doi_citations_to_pmid.py*: map citation pairs in DOI format to PMID using the EBI mapping data
 ### * *neighborhood_annotation_statistics.py*: network neighbor stats for annotated records
 ### * *neighborhood_annotation_statistics_all_medline.py*: network neighbor stats for all MEDLINE records
 ### * *parse_medline_for_mesh.py*: list all MeSH major topic annotations in MEDLINE
