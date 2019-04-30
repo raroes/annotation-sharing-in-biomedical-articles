@@ -149,7 +149,7 @@ for pmid in annotations_pmid.keys():
             recall = shared_annotations_count / record_annotations_count
             precision = shared_annotations_count / len(neighborhood_annots.keys())
             # compute F-measure based on recall and precision
-            if precision > 0 and recall > 0:
+            if precision + recall > 0:
                 f_measure = 2 * precision * recall / (precision + recall)
             else:
                 f_measure = 0
@@ -166,15 +166,12 @@ for pmid in annotations_pmid.keys():
                     precision_for_MAP_sum += precision_for_MAP
             # average the values to get the final AP
             average_precision_for_MAP = precision_for_MAP_sum / len(record_annotations)
-            # statistics on number of annotations in the neighborhood
-            for annotation in neighborhood_annots.keys():
-                total_annotation_count = annotation_stats[annotation]
-                neighborhood_annots[annotation] = neighborhood_annots[annotation] / total_annotation_count
         else:
             # flag if PMID has no neighbors
             empty_neighborhood = True
         # values of recall, precision, F-measure and AP are stored for later statistics
         if pmid in citation_counter_all.keys():
+            pass
             total_citations = citation_counter_all[pmid]
             if total_citations in recall_all.keys():
                 recall_all[total_citations].append(recall)
@@ -182,25 +179,34 @@ for pmid in annotations_pmid.keys():
             else:
                 recall_all[total_citations] = [recall]
                 average_precision_for_MAP_all[total_citations] = [average_precision_for_MAP]
-            if empty_neighborhood == False:
-                if total_citations in precision_all.keys():
-                    precision_all[total_citations].append(precision)
-                    f_measure_all[total_citations].append(f_measure)
-                else:
-                    precision_all[total_citations] = [precision]
-                    f_measure_all[total_citations] = [f_measure]
+            #if empty_neighborhood == False:
+            if total_citations in precision_all.keys():
+                precision_all[total_citations].append(precision)
+            else:
+                precision_all[total_citations] = [precision]
+            if total_citations in f_measure_all.keys():
+                f_measure_all[total_citations].append(f_measure)
+            else:
+                f_measure_all[total_citations] = [f_measure]
         # same as the previous block but for all connections, not just annotated ones
         if pmid in citation_counter_annotated.keys():
+            pass
             total_annotated_citations = citation_counter_annotated[pmid]
             if total_annotated_citations in recall_annotated.keys():
                 recall_annotated[total_annotated_citations].append(recall)
-                average_precision_for_MAP_annotated[total_annotated_citations].append(average_precision_for_MAP)
-                precision_annotated[total_annotated_citations].append(precision)
-                f_measure_annotated[total_annotated_citations].append(f_measure)
             else:
                 recall_annotated[total_annotated_citations] = [recall]
+            if total_annotated_citations in average_precision_for_MAP_annotated.keys():
+                average_precision_for_MAP_annotated[total_annotated_citations].append(average_precision_for_MAP)
+            else:
                 average_precision_for_MAP_annotated[total_annotated_citations] = [average_precision_for_MAP]
+            if total_annotated_citations in precision_annotated.keys():
+                precision_annotated[total_annotated_citations].append(precision)
+            else:
                 precision_annotated[total_annotated_citations] = [precision]
+            if total_annotated_citations in f_measure_annotated.keys():
+                f_measure_annotated[total_annotated_citations].append(f_measure)
+            else:
                 f_measure_annotated[total_annotated_citations] = [f_measure]
 
 # print statistics based on counts in the previous section

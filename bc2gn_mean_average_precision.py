@@ -193,7 +193,8 @@ for pmid in pmids_target.keys():
             average_precision_for_MAP = precision_for_MAP_sum / len(record_annotations)
             # statistics on number of annotations in the neighborhood
             for annotation in neighborhood_annots.keys():
-                total_annotation_count = annotation_stats[annotation]
+                if annotation in annotation_stats.keys():
+                    total_annotation_count = annotation_stats[annotation]
                 neighborhood_annots[annotation] = neighborhood_annots[annotation] / total_annotation_count
         else:
             # flag if PMID has no neighbors
@@ -235,6 +236,9 @@ print("Printing output to " + output_file_f_measure + "...")
 f_out = open(output_file_f_measure, "w")
 f_out.write("Connections\tRecall with annotated citations\tPrecision with annotated citations\tF-measure with annotated citations\tNumber of examples\tRecall with all\tPrecision with all\tF-measure with all\tNumber of examples\n")
 
+average_precision_all = "N/A"
+average_recall_all = "N/A"
+average_f_measure_all = "N/A"
 for i in range(1,max(recall_annotated.keys())+1):
     count1 = 0
     count2 = 0
