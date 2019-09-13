@@ -52,7 +52,7 @@ f_in = open(input_citation_file)
 for line in f_in:
     data = line[:-1].split("\t")
     counter+=1
-    if counter / 1000000 == int(counter / 1000000):
+    if counter / 10000000 == int(counter / 10000000):
         print("Read " + str(counter) + " citations")
     if len(data) > 1:
         pmid1 = data[0]
@@ -215,6 +215,7 @@ for pmid in annotations_pmid.keys():
 print("Printing output to " + output_file_f_measure + "...")
 f_out = open(output_file_f_measure, "w")
 f_out.write("Connections\tRecall with annotated citations\tPrecision with annotated citations\tF-measure with annotated citations\tNumber of examples\tRecall with all\tPrecision with all\tF-measure with all\tNumber of examples\n")
+print("Connections\tRecall with annotated citations\tPrecision with annotated citations\tF-measure with annotated citations\tNumber of examples\tRecall with all\tPrecision with all\tF-measure with all\tNumber of examples")
 
 for i in range(1,max(recall_annotated.keys())+1):
     count1 = 0
@@ -244,13 +245,16 @@ for i in range(1,max(recall_annotated.keys())+1):
         average_recall_all = "N/A"
         average_precision_all = "N/A"
         average_f_measure_all = "N/A"
-    f_out.write(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2) + "\t" + "\n")
+    f_out.write(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2) + "\n")
+    if i < 11:
+        print(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2))
 
 print("Printing output to " + output_file_map + "...")
 
 f_out = open(output_file_map, "w")
 
 f_out.write("Connections\tAnnotation MAP with annotated citations\tNumber of examples\tAnnotation MAP with all\tNumber of examples\n")
+print("Connections\tAnnotation MAP with annotated citations\tNumber of examples\tAnnotation MAP with all\tNumber of examples")
 
 
 for i in range(1,max(average_precision_for_MAP_annotated.keys())+1):
@@ -268,5 +272,7 @@ for i in range(1,max(average_precision_for_MAP_annotated.keys())+1):
         count2 = len(average_precision_for_MAP_list_all)
     else:
         mean_average_precision_for_MAP_all = "N/A"
-    f_out.write(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2) + "\t" + "\n")
+    f_out.write(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2) + "\n")
+    if i < 11:
+        print(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2))
 
