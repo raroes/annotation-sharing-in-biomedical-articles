@@ -1,6 +1,9 @@
 # Prediction of annotations using the citation network
 
-#### For the main analysis the order of execution of the scripts is the following, first:
+#### The entire analysis can be run using the script *run_all.sh*, which contains the sequence of scripts that needs to be followed.
+#### The only thing missing in the *run_all.sh* script is the download of MEDLINE and the BC2GN datasets.
+
+#### Below you can find a brief description of some of the files in this repository.
 
 #### Download data files:
 
@@ -11,17 +14,15 @@
 ### * *download_uniprot.sh*: download the UniProtKB annotations
 ### * *download_mesh_tree.sh*: download MeSH tree structure
 
-#### Then, one of these scripts:
+#### Processing data files:
 
 ### * *read_gene_annotations_uniprot.py*
 ### * *read_gene_annotations_gene2pubmed.py*
-### * *read_gene_annotations_goa.py*
+### * *read_mutation_annotations_dbsnp.py*
 ### * *read_gene_annotations_bc2.py*
 ### * *read_mesh_annotations.py*
 
-#### Then:
-
-### * *mean_average_precision.py*
+### * *mean_average_precision.py*: main script computing recall, precision, F-measure and MAP
 
 #### For the BC2GN analysis:
 
@@ -30,10 +31,8 @@
 
 #### Additional files:
 
-### * *create_second_degree_network.py*: creates the second-degree citation network
 ### * *create_shuffled_network.py*: creates a shuffled version of the original network
 ### * *map_doi_citations_to_pmid.py*: map citation pairs in DOI format to PMID using the EBI mapping data
-### * *neighborhood_annotation_statistics.py*: network neighbor stats for annotated records
 ### * *neighborhood_annotation_statistics_all_medline.py*: network neighbor stats for all MEDLINE records
 ### * *parse_medline_for_mesh.py*: list all MeSH major topic annotations in MEDLINE
 ### * *parse_medline_for_pmids.py*: list all MEDLINE PMIDs
