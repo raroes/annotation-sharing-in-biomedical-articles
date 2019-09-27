@@ -1,4 +1,9 @@
+# this script executes all the steps necessary fot the analysis
+# the only steps missing are the download of MEDLINE and the BC2GN datasets, which can be done separately
+
+# directory where the scripts will be located
 export BASE_DIR="."
+# whether to download the data files or not
 export DOWNLOAD_FILES=0
 
 if [ $DOWNLOAD_FILES -eq 1 ]; then
@@ -186,4 +191,3 @@ $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt 
 # using the second-degree network
 echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
 $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-
