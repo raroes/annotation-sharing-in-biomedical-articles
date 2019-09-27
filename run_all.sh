@@ -126,7 +126,7 @@ $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_
 
 # compute F-measure and MAP for the second-degree network
 echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/new_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
 
 # read gene2pubmed annotations
 echo $BASE_DIR/read_gene_annotations_gene2pubmed.py
