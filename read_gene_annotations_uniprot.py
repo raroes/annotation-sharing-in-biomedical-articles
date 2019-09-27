@@ -27,25 +27,26 @@ for line in f:
     # only entries corresponding to human genes are selected
     if species == "9606" and gene_id != "" and len(pmid_data) > 0:
         for pmid in pmid_data:
-            # keep a list of all unique PMIDs
-            pmids[pmid] = 1
-            # keep a list of all unique gene IDs
-            if gene_id not in gene_id_list.keys():
-                gene_id_list[gene_id] = 1
-            # for every gene ID, keep a list of all PMIDs in which it was annotated
-            if gene_id not in pmids_per_gene_id:
-                pmids_per_gene_id[gene_id] = [pmid]
-                total_annotations += 1
-            else:
-                if pmid not in pmids_per_gene_id[gene_id]:
-                    pmids_per_gene_id[gene_id].append(pmid)
+            if pmid != "":
+                # keep a list of all unique PMIDs
+                pmids[pmid] = 1
+                # keep a list of all unique gene IDs
+                if gene_id not in gene_id_list.keys():
+                    gene_id_list[gene_id] = 1
+                # for every gene ID, keep a list of all PMIDs in which it was annotated
+                if gene_id not in pmids_per_gene_id:
+                    pmids_per_gene_id[gene_id] = [pmid]
                     total_annotations += 1
-            # for every PMID, keep a list of all gene IDs that were annotated
-            if pmid not in gene_ids_per_pmid:
-                gene_ids_per_pmid[pmid] = [gene_id]
-            else:
-                if gene_id not in gene_ids_per_pmid[pmid]:
-                    gene_ids_per_pmid[pmid].append(gene_id)
+                else:
+                    if pmid not in pmids_per_gene_id[gene_id]:
+                        pmids_per_gene_id[gene_id].append(pmid)
+                        total_annotations += 1
+                # for every PMID, keep a list of all gene IDs that were annotated
+                if pmid not in gene_ids_per_pmid:
+                    gene_ids_per_pmid[pmid] = [gene_id]
+                else:
+                    if gene_id not in gene_ids_per_pmid[pmid]:
+                        gene_ids_per_pmid[pmid].append(gene_id)
 
 print("Total (human) annotations: " + str(total_annotations))
 print("Total number of genes with annotations: " + str(len(gene_id_list.keys())))
