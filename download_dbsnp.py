@@ -16,6 +16,4 @@ file_list = [base_file_name + ".json.bz2" for base_file_name in file_list1]
 
 for url,file_name in zip(url_list,file_list):
     command = "curl " + url + " --retry 10 --retry-max-time 0 -C - > ./data/" + file_name
-    #print(command)
     print("wget -c " + url)
-    #os.system(command)

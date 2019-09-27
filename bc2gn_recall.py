@@ -3,6 +3,7 @@
 # this script computes individual-record recall
 
 import sys
+import statistics
 
 if len(sys.argv) > 1:
     input_citation_file = sys.argv[1]
@@ -120,6 +121,8 @@ recall_annotated = {}
 total_recall = 0
 recall_sum = 0
 total_sum = 0
+list_count_annotations = []
+list_count_connections = []
 for pmid in pmids_bc2.keys():
     total = len(annotations_pmid[pmid].split("|"))
     if pmid in shared_annotations.keys():
@@ -141,8 +144,12 @@ for pmid in pmids_bc2.keys():
             total_recall += 1
         recall_sum += shared
         total_sum += total
+        list_count_annotations.append(count_annotations)
+        list_count_connections.append(count_all)
 
 percentage_total_recall = 100 * total_recall / len(pmids_bc2)
 
 print("Articles with 100% recall: " + str(total_recall) + "/" + str(len(pmids_bc2)) + "(" + "{0:.2f}".format(100 * total_recall / len(pmids_bc2)) + "%)")
 print("Annotations recalled in total: " + str(recall_sum) + "/" + str(total_sum) + "(" + "{0:.2f}".format(100 * recall_sum / total_sum) + "%)")
+print("Median number of annotated neighbors: " + str(statistics.median(list_count_annotations)))
+print("Median number of neighbors: " + str(statistics.median(list_count_connections)))

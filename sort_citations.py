@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+# duplicate citations by reversing each citation pair
+# this allows the creation of the second degree network by the next step (expand)
+
 input_file = "pmid_citations.txt"
 output_file = "pmid_citations_sorted.txt"
 

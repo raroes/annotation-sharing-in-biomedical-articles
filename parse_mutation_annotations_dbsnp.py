@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+# this script extract citations mentioned in the dbSNP database
+
 import json
 import bz2
 
