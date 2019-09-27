@@ -3,7 +3,6 @@
 input_file = "pmid_citations.txt"
 output_file = "pmid_citations_sorted.txt"
 
-
 f_in = open(input_file, "r")
 
 pair_pmids = {}
@@ -23,7 +22,7 @@ for line in f_in:
     else:
         pair_pmids[pmid2].append(pmid1)
     counter += 1
-    if counter / 100000 == int(counter / 100000):
+    if counter / 10000000 == int(counter / 10000000):
         print("Read " + str(counter) + " citations.")
 
 print("Citations read.")

@@ -4,7 +4,7 @@
 
 # this input file is a combination of the train and testing files
 input_file = "./data/bc2_gene_annotations.txt"
-output_file = "pmid_annotations.txt"
+output_file = "pmid_annotations_bc2.txt"
 
 print("Processing BC2GN annotations")
 

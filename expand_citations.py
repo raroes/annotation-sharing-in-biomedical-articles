@@ -4,9 +4,6 @@
 input_file = "pmid_citations_sorted.txt"
 output_file = "pmid_citations_second_degree.txt"
 
-#input_file = "temp_output.txt"
-#output_file = "temp_output2.txt"
-
 # first, all citations are read
 # a dictionary is created in which each PMID is associated to all its first-degree neighbors
 print("Reading input file...")
@@ -41,8 +38,6 @@ lines_written = 0
 old_pmid = 0
 output = {}
 for line in f_in:
-#for i in range(1,210000):
-#   line = f_in.readline()
     counter += 1
     if counter / 1000000 == int(counter / 1000000):
         print("Read " + str(counter) + " lines.")
@@ -52,12 +47,12 @@ for line in f_in:
     if pmid1 != old_pmid:
         already_out = {}
         old_pmid = pmid1
-    #if int(pmid1) < int(pmid2):
-        #if pmid2 not in already_out.keys():
-            #already_out[pmid2] = 1
+    if int(pmid1) < int(pmid2):
+        if pmid2 not in already_out.keys():
+            already_out[pmid2] = 1
             # write out the connection itself
-            ###f_out.write(str(pmid1) + "\t" + str(pmid2) + "\n")
-            ###lines_written += 1
+            f_out.write(str(pmid1) + "\t" + str(pmid2) + "\n")
+            lines_written += 1
     # check all possible neighbors of the second PMID
     if pmid2 in pmid_neighbors.keys():
         for pmid in pmid_neighbors[pmid2]:

@@ -52,7 +52,7 @@ f_in = open(input_citation_file)
 for line in f_in:
     data = line[:-1].split("\t")
     counter+=1
-    if counter / 10000000 == int(counter / 10000000):
+    if counter / 100000000 == int(counter / 100000000):
         print("Read " + str(counter) + " citations")
     if len(data) > 1:
         pmid1 = data[0]
@@ -246,7 +246,7 @@ for i in range(1,max(recall_annotated.keys())+1):
         average_precision_all = "N/A"
         average_f_measure_all = "N/A"
     f_out.write(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2) + "\n")
-    if i < 11:
+    if i < 21:
         print(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2))
 
 print("Printing output to " + output_file_map + "...")
@@ -273,6 +273,6 @@ for i in range(1,max(average_precision_for_MAP_annotated.keys())+1):
     else:
         mean_average_precision_for_MAP_all = "N/A"
     f_out.write(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2) + "\n")
-    if i < 11:
+    if i < 21:
         print(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2))
 

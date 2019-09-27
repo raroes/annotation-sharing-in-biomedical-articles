@@ -1,11 +1,20 @@
 #!/usr/bin/python3
 
-input_file = "pmid_annotations.txt"
-input_citation_file = "pmid_citations.txt"
+import sys
+
+if len(sys.argv) > 1:
+    input_file = sys.argv[1]
+    input_citation_file = sys.argv[2]
+else:
+    input_file = "pmid_annotations.tzt"
+    input_citation_file = "pmid_citations.txt"
+
 input_file_medline_pmids = "pmid_list.txt"
+
 
 output_file = "neighborhood_annotation_statistics_all_medline.txt"
 
+print("Reading a list of PMIDs...")
 # read a list of all MEDLINE PMIDs
 f_in = open(input_file_medline_pmids, "r")
 
@@ -49,7 +58,7 @@ annotated_connection_count = {}
 for line in f_in:
     data = line[:-1].split("\t")
     counter+=1
-    if counter / 1000000 == int(counter / 1000000):
+    if counter / 10000000 == int(counter / 10000000):
         print("Read " + str(counter) + " connections.")
     if len(data) > 1:
         # for each pair of PMIDs
@@ -105,6 +114,7 @@ print("Writing output to " + output_file + "...")
 f_out = open(output_file, "w")
 
 f_out.write("Connection count" + "\t" + "With annotated connections" + "\t" + "Percentage of all records\n")
+print("Connection count" + "\t" + "With annotated connections" + "\t" + "Percentage of all records")
 
 for i in range(0,max(annotated_count_list.keys())+1):
     if i in annotated_count_list.keys():
@@ -113,4 +123,6 @@ for i in range(0,max(annotated_count_list.keys())+1):
     else:
         annotated_count = 0
         percentage_annotated_count = 0
-    f_out.write(str(i) + "\t" + str(annotated_count) + "\t" + str(percentage_annotated_count) + "\t" + "\n")
+    f_out.write(str(i) + "\t" + str(annotated_count) + "\t" + str(percentage_annotated_count) + "\n")
+    if i <= 20:
+        print(str(i) + "\t" + str(annotated_count) + "\t" + str(percentage_annotated_count))
