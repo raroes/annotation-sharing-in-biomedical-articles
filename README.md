@@ -3,16 +3,16 @@
 The entire analysis can be run using the script *run_all.sh*, which contains the sequence of scripts that needs to be followed.
 The only thing missing in the *run_all.sh* script is the download of MEDLINE and the BC2GN datasets.
 
-#### Below you can find a brief description of some of the files in this repository.
+Below you can find a brief description of some of the files in this repository.
 
 #### Download data files:
 
-### * *download_citations.sh*: download citations from the Open Citation Index
-### * *download_gene2pubmed.sh*: download the gene2pubmed database
-### * *download_goa.sh*: download the Gene Ontology Annotation database
-### * *download_pmid_doi_mapping.sh*: download the PMID-PMC-DOI mappings from EBI
-### * *download_uniprot.sh*: download the UniProtKB annotations
-### * *download_mesh_tree.sh*: download MeSH tree structure
+* *download_citations.sh*: download citations from the Open Citation Index
+* *download_gene2pubmed.sh*: download the gene2pubmed database
+* *download_goa.sh*: download the Gene Ontology Annotation database
+* *download_pmid_doi_mapping.sh*: download the PMID-PMC-DOI mappings from EBI
+* *download_uniprot.sh*: download the UniProtKB annotations
+* *download_mesh_tree.sh*: download MeSH tree structure
 
 #### Processing data files:
 
