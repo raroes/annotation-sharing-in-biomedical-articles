@@ -1,4 +1,4 @@
-# Prediction of annotations using the citation network
+# Annotation sharing using the citation network
 
 The entire analysis can be run using the script *run_all.sh*, which contains the sequence of scripts that needs to be followed.
 The only thing missing in the *run_all.sh* script is the download of the MEDLINE and BC2GN datasets.
