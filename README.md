@@ -1,4 +1,4 @@
-# Annotation sharing for biomedical articles using the citation network
+# Biomedical articles share annotations with their citation neighborhood
 
 The entire analysis can be run using the script *run_all.sh*, which contains the sequence of scripts that needs to be followed.
 The only thing missing in the *run_all.sh* script is the download of the MEDLINE and BC2GN datasets.
@@ -22,7 +22,7 @@ Below you can find a brief description of some of the files in this repository.
 * *read_gene_annotations_bc2.py*
 * *read_mesh_annotations.py*
 
-* *mean_average_precision.py*: main script computing recall, precision, F-measure and MAP
+* *mean_average_precision.py*: main script computing recall, precision and MAP
 
 #### For the BC2GN analysis:
 
