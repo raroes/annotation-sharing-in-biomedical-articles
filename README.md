@@ -30,6 +30,7 @@ Below you can find a brief description of some of the files in this repository.
 
 #### Additional files:
 
+* *create_reference_annotations.py*: processes the reference datasets NLM2007 and L1000
 * *create_shuffled_network.py*: creates a shuffled version of the original network
 * *map_doi_citations_to_pmid.py*: map citation pairs in DOI format to PMID using the EBI mapping data
 * *neighborhood_annotation_statistics_all_medline.py*: network neighbor stats for all MEDLINE records
