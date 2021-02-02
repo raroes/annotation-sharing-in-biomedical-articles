@@ -2,7 +2,7 @@
 
 # this script reads gene annotations from the UniProtKB database
 input_file = "./data/idmapping_selected.tab"
-output_file = "pmid_annotations_uniprot.txt"
+output_file = "pmid_annotations_uniprot_new.txt"
 
 
 print("Processing UniProtKB annotations")
