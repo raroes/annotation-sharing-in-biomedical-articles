@@ -3,16 +3,21 @@
 # compute recall, precision, F-measure and MAP
 
 import sys
+import re
 
 if len(sys.argv) > 1:
     input_citation_file = sys.argv[1]
     input_file = sys.argv[2]
 else:
     input_citation_file = "pmid_citations.txt"
-    input_file = "pmid_annotations.txt"
+    input_file = "pmid_annotations_gene2pubmed.txt"
 
-output_file_f_measure = "annotation_average_f_measure_based_on_connections.txt"
-output_file_map = "annotation_map_based_on_connections.txt"
+input_file_trimmed = re.sub(r'^[\.]','',re.sub(r'[^a-zA-Z0-9i\_\.]', '', input_file))
+input_citation_file_trimmed =  re.sub(r'^[\.]','',re.sub(r'[^a-zA-Z0-9\_\.]', '', input_citation_file))
+
+output_file_f_measure = input_file_trimmed + "_" + input_citation_file_trimmed + "_" + "annotation_average_f_measure_based_on_connections1.txt"
+output_file_map = input_file_trimmed + "_" + input_citation_file_trimmed + "_" + "annotation_map_based_on_connections1.txt"
+output_figure_data = input_file_trimmed + "_" + input_citation_file_trimmed + "_" + "figure_data.txt"
 
 f_in = open(input_file, "r")
 
@@ -48,12 +53,16 @@ print("Reading citation data...")
 neighborhood_annotations = {}
 neighborhood_annotation_dict = {}
 f_in = open(input_citation_file)
+counter_neighbors = 0
+counter_pairs = 0
 
 for line in f_in:
-    data = line[:-1].split("\t")
+    #for i in range(0,25):
+    #    line = f_in.readline()
     counter+=1
     if counter / 100000000 == int(counter / 100000000):
         print("Read " + str(counter) + " citations")
+    data = line[:-1].split("\t")
     if len(data) > 1:
         pmid1 = data[0]
         pmid2 = data[1]
@@ -72,6 +81,7 @@ for line in f_in:
         if pmid1 in annotations_pmid.keys():
             # ... check if the other PMID has been annotated as well
             if pmid2 in annotations_pmid.keys():
+                counter_pairs += 1
                 # compute annotated connection counts
                 if pmid1 in citation_counter_annotated.keys():
                     citation_counter_annotated[pmid1] += 1
@@ -90,6 +100,7 @@ for line in f_in:
                         neighborhood_annotation_dict = neighborhood_annotations[pmid1]
                     else:
                         neighborhood_annotation_dict = {}
+                        counter_neighbors += 1
                     if annotation in neighborhood_annotation_dict.keys():
                         neighborhood_annotation_dict[annotation] += 1
                     else:
@@ -101,6 +112,7 @@ for line in f_in:
                         neighborhood_annotation_dict = neighborhood_annotations[pmid2]
                     else:
                         neighborhood_annotation_dict = {}
+                        counter_neighbors += 1
                     if annotation not in neighborhood_annotation_dict.keys():
                         neighborhood_annotation_dict[annotation] = 1
                     else:
@@ -108,6 +120,8 @@ for line in f_in:
                     neighborhood_annotations[pmid2] = neighborhood_annotation_dict
                             
 
+print("Annotated pairs: " + str(counter_pairs))
+print("Neigbors with annotations identified: " + str(counter_neighbors))
 # compute recall, precision, F-measure and MAP
 counter = 0
 print("Computing F-measures and MAPs...")
@@ -121,6 +135,7 @@ f_measure_all = {}
 average_precision_for_MAP_annotated = {}
 average_precision_for_MAP_all = {}
 shared_annotations = []
+figure_data_lines = []
 
 # go through each PMID
 for pmid in annotations_pmid.keys():
@@ -128,9 +143,6 @@ for pmid in annotations_pmid.keys():
     record_annotations = list(annotations_pmid[pmid].split("|"))
     record_annotations_count = len(record_annotations)
     neighborhood_annots = {}
-    counter += 1
-    if counter / 100000 == int(counter / 100000):
-        print("Read " + str(counter) + " record statistics...")
     # if PMID has annotations
     if record_annotations_count > 0:
         shared_annotations_count = 0
@@ -141,6 +153,9 @@ for pmid in annotations_pmid.keys():
         average_precision_for_MAP = 0
         # check the annotations in the PMID's neighborhood (if any)
         if pmid in neighborhood_annotations.keys():
+            counter += 1
+            if counter / 100000 == int(counter / 100000):
+                print("Read " + str(counter) + " statistics from records with annotated neighbors...")
             neighborhood_annots = neighborhood_annotations[pmid]
             # count those that are shared between the PMID and the neighborhood
             shared_annotations = list(set(neighborhood_annots.keys()) & set(record_annotations))
@@ -171,7 +186,6 @@ for pmid in annotations_pmid.keys():
             empty_neighborhood = True
         # values of recall, precision, F-measure and AP are stored for later statistics
         if pmid in citation_counter_all.keys():
-            pass
             total_citations = citation_counter_all[pmid]
             if total_citations in recall_all.keys():
                 recall_all[total_citations].append(recall)
@@ -190,7 +204,6 @@ for pmid in annotations_pmid.keys():
                 f_measure_all[total_citations] = [f_measure]
         # same as the previous block but for all connections, not just annotated ones
         if pmid in citation_counter_annotated.keys():
-            pass
             total_annotated_citations = citation_counter_annotated[pmid]
             if total_annotated_citations in recall_annotated.keys():
                 recall_annotated[total_annotated_citations].append(recall)
@@ -222,25 +235,25 @@ for i in range(1,max(recall_annotated.keys())+1):
     count2 = 0
     if i in recall_annotated.keys():
         recall_list_annotated = recall_annotated[i]
-        average_recall_annotated = sum(recall_list_annotated) / len(recall_list_annotated)
+        average_recall_annotated = 100*sum(recall_list_annotated) / len(recall_list_annotated)
         count1 = len(recall_list_annotated)
         precision_list_annotated = precision_annotated[i]
-        average_precision_annotated = sum(precision_list_annotated) / len(precision_list_annotated)
+        average_precision_annotated = 100*sum(precision_list_annotated) / len(precision_list_annotated)
         f_measure_list_annotated = f_measure_annotated[i]
-        average_f_measure_annotated = sum(f_measure_list_annotated) / len(f_measure_list_annotated)
+        average_f_measure_annotated = 100*sum(f_measure_list_annotated) / len(f_measure_list_annotated)
     else:
         average_recall_annotated = "N/A"
         average_precision_annotated = "N/A"
         average_f_measure_annotated = "N/A"
     if i in recall_all.keys():
         recall_list_all = recall_all[i]
-        average_recall_all = sum(recall_list_all) / len(recall_list_all)
+        average_recall_all = 100*sum(recall_list_all) / len(recall_list_all)
         count2 = len(recall_list_all)
         if i in precision_all.keys():
             precision_list_all = precision_all[i]
-            average_precision_all = sum(precision_list_all) / len(precision_list_all)
+            average_precision_all = 100*sum(precision_list_all) / len(precision_list_all)
             f_measure_list_all = f_measure_all[i]
-            average_f_measure_all = sum(f_measure_list_all) / len(f_measure_list_all)
+            average_f_measure_all = 100*sum(f_measure_list_all) / len(f_measure_list_all)
     else:
         average_recall_all = "N/A"
         average_precision_all = "N/A"
@@ -248,6 +261,7 @@ for i in range(1,max(recall_annotated.keys())+1):
     f_out.write(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2) + "\n")
     if i < 21:
         print(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t" + str(count1) + "\t" + str(average_recall_all) + "\t" + str(average_precision_all) + "\t" + str(average_f_measure_all) + "\t" + str(count2))
+        figure_data_lines.append(str(i) + "\t" + str(average_recall_annotated) + "\t" + str(average_precision_annotated) + "\t" + str(average_f_measure_annotated) + "\t")
 
 print("Printing output to " + output_file_map + "...")
 
@@ -262,17 +276,31 @@ for i in range(1,max(average_precision_for_MAP_annotated.keys())+1):
     count2 = 0
     if i in average_precision_for_MAP_annotated.keys():
         average_precision_for_MAP_list_annotated = average_precision_for_MAP_annotated[i]
-        mean_average_precision_for_MAP_annotated = sum(average_precision_for_MAP_list_annotated) / len(average_precision_for_MAP_list_annotated)
+        mean_average_precision_for_MAP_annotated = 100*sum(average_precision_for_MAP_list_annotated) / len(average_precision_for_MAP_list_annotated)
         count1 = len(average_precision_for_MAP_list_annotated)
     else:
         mean_average_precision_for_MAP_annotated = "N/A"
     if i in average_precision_for_MAP_all.keys():
         average_precision_for_MAP_list_all = average_precision_for_MAP_all[i]
-        mean_average_precision_for_MAP_all = sum(average_precision_for_MAP_list_all) / len(average_precision_for_MAP_list_all)
+        mean_average_precision_for_MAP_all = 100*sum(average_precision_for_MAP_list_all) / len(average_precision_for_MAP_list_all)
         count2 = len(average_precision_for_MAP_list_all)
     else:
         mean_average_precision_for_MAP_all = "N/A"
     f_out.write(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2) + "\n")
     if i < 21:
         print(str(i) + "\t" + str(mean_average_precision_for_MAP_annotated) + "\t" + str(count1) + "\t" + str(mean_average_precision_for_MAP_all) + "\t" + str(count2))
+        figure_data_lines[i-1] = figure_data_lines[i-1] + str(mean_average_precision_for_MAP_annotated)
+
+print("Printing output to " + output_figure_data + "...")
+f_out = open(output_figure_data, "w")
+
+f_out.write("Connections\tRecall\tPrecision\tF-measure\tMAP\n")
+print("Connections\tRecall\tPrecision\tF-measure\tMAP")
+
+for i in range(0,max(average_precision_for_MAP_annotated.keys())+1):
+    if i < len(figure_data_lines):
+        print(figure_data_lines[i])
+        f_out.write(figure_data_lines[i] + "\n")
+
+
 

@@ -1,8 +1,11 @@
 #!/usr/bin/python3
 
 import os
+from init_vars import *
 
-download_base_url = "ftp://ftp.ncbi.nih.gov/snp/latest_release/JSON/refsnp-chr"
+#download_base_url = "ftp://ftp.ncbi.nih.gov/snp/latest_release/JSON/refsnp-chr"
+download_base_url = "ftp://ftp.ncbi.nih.gov/snp/archive/b153/JSON/refsnp-chr"
+download_directory = "./data/"
 
 
 # create downloading URLs for dbSNP
@@ -15,5 +18,6 @@ file_list1 = ['refsnp-chr' + str(i) for i in list(range(1,23)) + ['MT', 'X', 'Y'
 file_list = [base_file_name + ".json.bz2" for base_file_name in file_list1]
 
 for url,file_name in zip(url_list,file_list):
-    command = "curl " + url + " --retry 10 --retry-max-time 0 -C - > ./data/" + file_name
-    print("wget -c " + url)
+    command = "wget -c " + url + " -P " + download_directory
+    print(command)
+    os.system(command)

@@ -2,7 +2,7 @@
 
 # this script reads gene annotations from the gene2pubmed database
 input_file = "./data/gene2pubmed.gz"
-output_file = "pmid_annotations.txt"
+output_file = "pmid_annotations_gene2pubmed.txt"
 results_file = "annotation_counts_per_gene.txt"
 
 print("Processing gene2pubmed annotations")

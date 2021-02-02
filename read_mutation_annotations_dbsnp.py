@@ -2,8 +2,7 @@
 
 # this script reads mutation annotations from the dbSNP database
 input_file = "pmid_annotations_mutations.txt"
-output_file = "pmid_annotations.txt"
-results_file = "annotation_counts_per_rsid.txt"
+output_file = "pmid_annotations_dbsnp.txt"
 
 print("Processing dbSNP annotations")
 

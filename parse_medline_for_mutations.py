@@ -2,6 +2,8 @@
 
 # this script parses MESH annotations from the MEDLINE baseline
 
+input = "new_pmid_annotations_mutations.txt"
+
 from init_vars import *
 import gzip
 import os
@@ -9,7 +11,7 @@ import re
 
 source_directories = source_directories_medline
 
-output_file = "pmid_mesh.txt"
+output_file = "new_mutations_pmid.txt"
 
 
 f_out = open(output_file, "w")

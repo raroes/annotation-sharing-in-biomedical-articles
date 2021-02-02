@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-import sys
+
+import sys, re
 
 if len(sys.argv) > 1:
     input_file = sys.argv[1]
@@ -9,10 +10,11 @@ else:
     input_file = "pmid_annotations.tzt"
     input_citation_file = "pmid_citations.txt"
 
+input_file_trimmed = re.sub(r'^[\.]','',re.sub(r'[^a-zA-Z0-9i\_\.]', '', input_file))
+input_citation_file_trimmed =  re.sub(r'^[\.]','',re.sub(r'[^a-zA-Z0-9\_\.]', '', input_citation_file))
+
 input_file_medline_pmids = "pmid_list.txt"
-
-
-output_file = "neighborhood_annotation_statistics_all_medline.txt"
+output_file = input_file_trimmed + "_" + input_citation_file_trimmed + "_" + "neighborhood_annotation_statistics_all_medline.txt"
 
 print("Reading a list of PMIDs...")
 # read a list of all MEDLINE PMIDs
@@ -58,7 +60,7 @@ annotated_connection_count = {}
 for line in f_in:
     data = line[:-1].split("\t")
     counter+=1
-    if counter / 10000000 == int(counter / 10000000):
+    if (counter / 100000000) == int(counter / 100000000):
         print("Read " + str(counter) + " connections.")
     if len(data) > 1:
         # for each pair of PMIDs

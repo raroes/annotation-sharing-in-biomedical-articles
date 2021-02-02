@@ -56,55 +56,15 @@ $BASE_DIR/expand_citations.py
 echo $BASE_DIR/read_gene_annotations_gene2pubmed.py
 $BASE_DIR/read_gene_annotations_gene2pubmed.py
 
-# compute F-measure and MAP for the first-degree network
-echo $BASE_DIR/mean_average_precision.py
-$BASE_DIR/mean_average_precision.py
-
-# compute F-measure and MAP for the randomized network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-
-# compute F-measure and MAP for the second-degree network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-
 # read UniprotKB annotations
 echo $BASE_DIR/read_gene_annotations_uniprot.py
 $BASE_DIR/read_gene_annotations_uniprot.py
 
-# compute F-measure and MAP
-echo $BASE_DIR/mean_average_precision.py
-$BASE_DIR/mean_average_precision.py
-
-# compute F-measure and MAP for the randomized network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-
-# compute F-measure and MAP for the second-degree network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-
-# parse dbSNP mutations
+## parse dbSNP mutations
 echo $BASE_DIR/parse_mutation_annotations_dbsnp.py
 $BASE_DIR/parse_mutation_annotations_dbsnp.py
 
-# read dbSNP mutations
-echo $BASE_DIR/read_mutation_annotations_dbsnp.py
-$BASE_DIR/read_mutation_annotations_dbsnp.py
-
-# compute F-measure and MAP for the first-degree network
-echo $BASE_DIR/mean_average_precision.py
-$BASE_DIR/mean_average_precision.py
-
-# compute F-measure and MAP for the randomized network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-
-# compute F-measure and MAP for the second-degree network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-
-# read PMIDs in MEDLINE
+## read PMIDs in MEDLINE
 echo $BASE_DIR/parse_medline_for_pmids.py
 $BASE_DIR/parse_medline_for_pmids.py
 
@@ -112,82 +72,128 @@ $BASE_DIR/parse_medline_for_pmids.py
 echo $BASE_DIR/parse_medline_for_mesh.py
 $BASE_DIR/parse_medline_for_mesh.py
 
-# read MeSH annotations
+## read MeSH annotations
 echo $BASE_DIR/read_mesh_annotations.py
 $BASE_DIR/read_mesh_annotations.py
 
-# compute F-measure and MAP
-echo $BASE_DIR/mean_average_precision.py
-$BASE_DIR/mean_average_precision.py
+## gene2pubmed
 
-# compute F-measure and MAP for the randomized network
-echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
+## compute F-measure and MAP for the first-degree network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt
 
-# compute F-measure and MAP for the second-degree network
+## compute F-measure and MAP for the randomized network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt
+
+## compute F-measure and MAP for the second-degree network
 echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt
 
-# read gene2pubmed annotations
-echo $BASE_DIR/read_gene_annotations_gene2pubmed.py
-$BASE_DIR/read_gene_annotations_gene2pubmed.py
+## Uniprot
 
-# compute coverage of the MEDLINE network
-echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations.txt
-$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations.txt
+## compute F-measure and MAP
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_uniprot.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_uniprot.txt 
 
-# compute coverage of the MEDLINE second-degree network
-echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations_second_degree.txt
-$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations_second_degree.txt
+## compute F-measure and MAP for the randomized network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_uniprot.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_uniprot.txt
 
-# read UniprotKB annotations
-echo $BASE_DIR/read_gene_annotations_uniprot.py
-$BASE_DIR/read_gene_annotations_uniprot.py
+## compute F-measure and MAP for the second-degree network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_uniprot.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_uniprot.txt
 
-# compute coverage of the MEDLINE network
-echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations.txt
-$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations.txt
+## dbSNP
 
-# compute coverage of the MEDLINE second-degree network
-echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations_second_degree.txt
-$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations_second_degree.txt
+## compute F-measure and MAP for the first-degree network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_dbsnp.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_dbsnp.txt
 
-# read dbSNP mutations
-echo $BASE_DIR/read_mutation_annotations_dbsnp.py
-$BASE_DIR/read_mutation_annotations_dbsnp.py
+## compute F-measure and MAP for the randomized network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_dbsnp.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_dbsnp.txt
 
-# compute coverage of the MEDLINE network
-echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations.txt
-$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations.txt
+## compute F-measure and MAP for the second-degree network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_dbsnp.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_dbsnp.txt
 
-# compute coverage of the MEDLINE second-degree network
-echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations_second_degree.txt
-$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations.txt $BASE_DIR/pmid_citations_second_degree.txt
+## MESH
 
-# read BC2GN annotations
+## compute F-measure and MAP
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_mesh.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_mesh.txt
+
+## compute F-measure and MAP for the randomized network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_mesh.txt
+
+## compute F-measure and MAP for the second-degree network
+echo $BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
+$BASE_DIR/mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_mesh.txt
+
+
+## compute coverage of the gene2pubmed network
+echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_citations.txt
+$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_citations.txt
+
+## compute coverage of the gene2pubmed second-degree network
+echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_citations_second_degree.txt
+$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_citations_second_degree.txt
+
+## compute coverage of the UniProt network
+echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_uniprot.txt $BASE_DIR/pmid_citations.txt
+$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_uniprot.txt $BASE_DIR/pmid_citations.txt
+
+## compute coverage of the UniProt second-degree network
+echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_uniprot.txt $BASE_DIR/pmid_citations_second_degree.txt
+$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_uniprot.txt $BASE_DIR/pmid_citations_second_degree.txt
+
+
+## compute coverage of the dbSNP network
+echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_dbsnp.txt $BASE_DIR/pmid_citations.txt
+$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_dbsnp.txt $BASE_DIR/pmid_citations.txt
+
+## compute coverage of the dbSNP second-degree network
+echo $BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_dbsnp.txt $BASE_DIR/pmid_citations_second_degree.txt
+$BASE_DIR/neighborhood_annotation_statistics_all_medline.py $BASE_DIR/pmid_annotations_dbsnp.txt $BASE_DIR/pmid_citations_second_degree.txt
+
+## read BC2GN annotations
 echo $BASE_DIR/read_gene_annotations_bc2.py
 $BASE_DIR/read_gene_annotations_bc2.py
 
-# compute individual-document recall values for BC2GN
+## compute individual-document recall values for BC2GN
 echo $BASE_DIR/bc2gn_recall.py
 $BASE_DIR/bc2gn_recall.py
 
-# compute individual-document recall values for BC2GN with second degree network
+## compute individual-document recall values for BC2GN with second degree network
 echo $BASE_DIR/bc2gn_recall.py $BASE_DIR/pmid_citations_second_degree.txt
 $BASE_DIR/bc2gn_recall.py $BASE_DIR/pmid_citations_second_degree.txt
 
-# compute individual-document recall values for BCG2N with the randomized network
+## compute individual-document recall values for BCG2N with the randomized network
 echo $BASE_DIR/bc2gn_recall.py $BASE_DIR/pmid_citations_shuffled.txt
 $BASE_DIR/bc2gn_recall.py $BASE_DIR/pmid_citations_shuffled.txt
 
-# compute MAP for BC2GN
-echo $BASE_DIR/bc2gn_mean_average_precision.py
-$BASE_DIR/bc2gn_mean_average_precision.py
+## compute MAP for BC2GN
+echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_annotations_bc2.txt
+$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_annotations_bc2.txt
 
-# compute MAP for BC2GN using the randomized network
-echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations.txt
+## compute MAP for BC2GN using the randomized network
+echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_annotations_bc2.txt
+$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_shuffled.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_annotations_bc2.txt
 
-# using the second-degree network
-echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
-$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations.txt
+## using the second-degree network
+echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_annotations_bc2.txt
+$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations_second_degree.txt $BASE_DIR/pmid_annotations_gene2pubmed.txt $BASE_DIR/pmid_annotations_bc2.txt
+
+## repeat the same analysis done for BC2GN but for other reference datasets
+echo $BASE_DIR/create_reference_annotations.py
+$BASE_DIR/create_reference_annotations.py
+
+## compute MAP for L1000
+echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotationsi_mesh.txt $BASE_DIR/pmid_annotations_L1000.txt
+$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_mesh.txt $BASE_DIR/pmid_annotations_L1000.txt
+
+## compute MAP for NLM2007
+echo $BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_mesh.txt $BASE_DIR/pmid_annotations_NLM2007.txt
+$BASE_DIR/bc2gn_mean_average_precision.py $BASE_DIR/pmid_citations.txt $BASE_DIR/pmid_annotations_mesh.txt $BASE_DIR/pmid_annotations_NLM2007.txt

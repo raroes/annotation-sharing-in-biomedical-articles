@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 
-# this script parses MESH annotations from the MEDLINE baseline 2019
+# this script parses MESH annotations from the MEDLINE baseline
 
+from init_vars import *
 import gzip
 import os
 import re
 
-source_directories = ['/pstore/data/i2e/i2e_sources/Source_Data/MEDLINE_download/2019/Base/']
+source_directories = source_directories_medline
 
 output_file = "pmid_list.txt"
 
