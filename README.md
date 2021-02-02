@@ -1,15 +1,14 @@
 # Biomedical articles share annotations with their citation neighborhood
 
 The entire analysis can be run using the script *run_all.sh*, which contains the sequence of scripts that needs to be followed.
-The only thing missing in the *run_all.sh* script is the download of the MEDLINE and BC2GN datasets.
+The only thing missing in the *run_all.sh* script is the download of the MEDLINE, NLM2007, L1000 and BC2GN datasets.
 
 Below you can find a brief description of some of the files in this repository.
 
 #### Download data files:
 
-* *download_citations.sh*: download citations from the Open Citation Index
+* *download_citations.sh*: download citations from the Open Citation Index. The URL has to be adjusted for newer releases of the data.
 * *download_gene2pubmed.sh*: download the gene2pubmed database
-* *download_goa.sh*: download the Gene Ontology Annotation database
 * *download_pmid_doi_mapping.sh*: download the PMID-PMC-DOI mappings from EBI
 * *download_uniprot.sh*: download the UniProtKB annotations
 * *download_mesh_tree.sh*: download MeSH tree structure
