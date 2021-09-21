@@ -14,6 +14,7 @@ file_list1 = ['refsnp-chr' + str(i) for i in list(range(1,23)) + ['MT', 'X', 'Y'
 
 file_list = ["./data/" + base_file_name + ".json.bz2" for base_file_name in file_list1]
 
+total_count = 0
 
 for input_file in file_list:
     print(input_file)
