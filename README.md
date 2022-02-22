@@ -1,5 +1,11 @@
 # Biomedical articles share annotations with their citation neighborhood
 
+Author: Raul Rodriguez-Esteban
+
+Reference: Rodriguez-Esteban R. Biomedical articles share annotations with their citation neighbors. BMC Bioinformatics. 2021 Feb 26;22(1):95. 
+
+Paper link: https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04044-4
+
 The entire analysis can be run using the script *run_all.sh*, which contains the sequence of scripts that needs to be followed.
 The only thing missing in the *run_all.sh* script is the download of the MEDLINE, NLM2007, L1000 and BC2GN datasets.
 
